@@ -8,13 +8,14 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         app:cardBackgroundColor="@color/yellow"
         android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingTop="7dp"
             android:orientation="vertical">
 
             <TextView
@@ -22,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Demo text"
+                android:textSize="25dp"
                 android:textAlignment="center"
                 android:textStyle="bold" />
 
