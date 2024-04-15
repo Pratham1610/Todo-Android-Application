@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/baseline_edit_note_24"
         android:text="TODO Application"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
