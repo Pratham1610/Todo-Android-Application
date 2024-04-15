@@ -25,7 +25,6 @@ class MyAdapter(private var todoList: List<TodoData>) : RecyclerView.Adapter<Tod
             holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
         }
     }
-
     override fun getItemCount(): Int {
         return todoList.size
     }

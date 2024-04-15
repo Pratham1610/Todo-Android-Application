@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapplication.data.DBHandler
+import androidx.appcompat.app.AlertDialog
 
 class TodoActivity : AppCompatActivity() {
 
@@ -30,11 +31,7 @@ class TodoActivity : AppCompatActivity() {
         }
         val deleteBtn: Button = findViewById(R.id.btnDeleteItem)
         deleteBtn.setOnClickListener{
-            Log.d("Initial Size of the Table: ", db.getSize().toString())
-            db.deleteData()
-            updateRecyclerView()
-            Log.d("Size of the Table: ", db.getSize().toString())
-            Toast.makeText(this, "All task delete successfully", Toast.LENGTH_LONG).show()
+            alertBox()
         }
     }
 
@@ -46,5 +43,37 @@ class TodoActivity : AppCompatActivity() {
         val newTodoList = db.getAllTask()
         adapter.updateData(newTodoList)
         adapter.notifyDataSetChanged()
+    }
+    private fun alertBox(){
+        var check: Boolean = false
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Warning!!")
+        builder.setMessage("This action cannot be undone. Are you sure ?")
+
+        builder.setPositiveButton("YES") { dialog, which ->
+            Toast.makeText(applicationContext,
+                "YES", Toast.LENGTH_SHORT).show()
+            deleteAllTask()
+        }
+
+        builder.setNegativeButton("NO") { dialog, which ->
+            Toast.makeText(applicationContext,
+                "NO", Toast.LENGTH_SHORT).show()
+
+        }
+
+        builder.setNeutralButton("Cancel") { dialog, which ->
+            Toast.makeText(applicationContext,
+                "Cancel", Toast.LENGTH_SHORT).show()
+        }
+        builder.show()
+    }
+
+    private fun deleteAllTask(){
+        Log.d("Initial Size of the Table: ", db.getSize().toString())
+        db.deleteData()
+        updateRecyclerView()
+        Log.d("Size of the Table: ", db.getSize().toString())
+        Toast.makeText(this, "All task delete successfully", Toast.LENGTH_LONG).show()
     }
 }
