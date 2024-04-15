@@ -1,6 +1,8 @@
 package com.example.todoapplication
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -31,4 +33,5 @@ class MyAdapter(private var todoList: List<TodoData>) : RecyclerView.Adapter<Tod
     fun updateData(newTodoList: List<TodoData>) {
         todoList = newTodoList
     }
+
 }

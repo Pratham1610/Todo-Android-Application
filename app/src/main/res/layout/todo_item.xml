@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="78dp"
             android:orientation="vertical"
             android:paddingTop="7dp">
 
@@ -29,15 +29,18 @@
                 android:layout_height="wrap_content"
                 android:text="Demo text"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_priority"
-                android:layout_width="match_parent"
+                android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:text="Demo Priority"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

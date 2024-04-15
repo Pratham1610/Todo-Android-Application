@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapplication.data.DBHandler
-import androidx.appcompat.app.AlertDialog
+
 
 class TodoActivity : AppCompatActivity() {
 
@@ -31,8 +32,12 @@ class TodoActivity : AppCompatActivity() {
         }
         val deleteBtn: Button = findViewById(R.id.btnDeleteItem)
         deleteBtn.setOnClickListener{
-            alertBox()
+            if(db.getSize() == 0){
+                alertBox("Nothing to Delete")
+            }
+            else alertBox()
         }
+
     }
 
     override fun onResume() {
@@ -68,7 +73,16 @@ class TodoActivity : AppCompatActivity() {
         }
         builder.show()
     }
-
+    private fun alertBox(text: String){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(text)
+            .setCancelable(false)
+            .setPositiveButton("OK") { dialog, id ->
+                Log.d("OK", "pressed")
+            }
+        val alert = builder.create()
+        alert.show()
+    }
     private fun deleteAllTask(){
         Log.d("Initial Size of the Table: ", db.getSize().toString())
         db.deleteData()
@@ -76,4 +90,5 @@ class TodoActivity : AppCompatActivity() {
         Log.d("Size of the Table: ", db.getSize().toString())
         Toast.makeText(this, "All task delete successfully", Toast.LENGTH_LONG).show()
     }
+
 }

@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todoapplication.data.DBHandler
 
@@ -26,8 +27,7 @@ class AddTaskActivity : AppCompatActivity(){
             taskText = findViewById<EditText>(R.id.task_data).text.toString()
             taskPriority = findViewById<Spinner>(R.id.spinner).selectedItem.toString()
             if(taskText.replace(" ", "").isEmpty()){
-                Toast.makeText(this, "Input task is empty", Toast.LENGTH_LONG).show()
-                finish()
+                alertBox("Input task is empty")
             }
             else{
                 addDataToDB()
@@ -43,5 +43,15 @@ class AddTaskActivity : AppCompatActivity(){
         Toast.makeText(this, " $taskText  Added with Priority: $taskPriority", Toast.LENGTH_LONG).show()
         finish()
     }
-
+    private fun alertBox(text: String){
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(text)
+            .setCancelable(false)
+            .setPositiveButton("OK") { dialog, id ->
+                Log.d("OK", "pressed")
+                finish()
+            }
+        val alert = builder.create()
+        alert.show()
+    }
 }
