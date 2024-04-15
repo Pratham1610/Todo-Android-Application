@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TodoApplication</string>
+    <string name="add_item">Add Item</string>
+    <string name="delete_all_items">Delete all Items</string>
+    <string-array name="spinner_items">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
+
+</resources>
