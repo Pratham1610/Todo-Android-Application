@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val startBnt = findViewById<Button>(R.id.bntstrt)
         startBnt.setOnClickListener {
             startActivity(Intent(this, TodoActivity::class.java))
+            finish()
         }
     }
 }

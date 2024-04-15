@@ -2,6 +2,7 @@ package com.example.todoapplication.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
@@ -10,6 +11,7 @@ import androidx.annotation.RequiresApi
 import com.example.todoapplication.TodoData
 import java.time.Instant
 import java.time.format.DateTimeFormatter
+
 
 class DBHandler(context: Context) :
     SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
@@ -74,5 +76,13 @@ class DBHandler(context: Context) :
         val deleteQuery = ("DELETE FROM $TABLE_NAME;")
         val db = writableDatabase
         db.execSQL(deleteQuery)
+    }
+
+    fun getSize(): Int{
+        val query = "SELECT COUNT(*) FROM $TABLE_NAME;"
+        val db = readableDatabase
+        val count = DatabaseUtils.queryNumEntries(db, TABLE_NAME)
+        db.close()
+        return count.toInt()
     }
 }
