@@ -19,7 +19,6 @@ class DBHandler(context: Context) :
         companion object{
             private val DB_NAME = "todo_database"
             private val DB_VERSION = 1
-
             private val TABLE_NAME = "todo_table"
             private val KEY_DATA = "task"
             private val KEY_PRIORITY  = "priority"
@@ -52,7 +51,7 @@ class DBHandler(context: Context) :
         db.close()
     }
 
-    fun getAllTask(): List<TodoData>{
+    fun getAllTask(): MutableList<TodoData>{
         val getQuery = ("SELECT * FROM $TABLE_NAME;")
         val datalist = mutableListOf<TodoData>()
         val db = readableDatabase
@@ -84,5 +83,23 @@ class DBHandler(context: Context) :
         val count = DatabaseUtils.queryNumEntries(db, TABLE_NAME)
         db.close()
         return count.toInt()
+    }
+
+    fun deleteTask(taskName: String, taskPriority: String){
+        val query = "DELETE FROM $TABLE_NAME WHERE $KEY_DATA = '$taskName' AND $KEY_PRIORITY = '$taskPriority';"
+        val db = writableDatabase
+        db.execSQL(query)
+    }
+
+    fun editTask(
+        taskName: String,
+        taskPriority: String,
+        newTaskName: String,
+        newTaskPriority: String)
+    {
+        val query = "UPDATE $TABLE_NAME SET $KEY_PRIORITY = '$newTaskPriority', $KEY_DATA = " +
+                "'$newTaskName' WHERE $KEY_PRIORITY = '$taskPriority' AND $KEY_DATA = '$taskName';"
+        val db = writableDatabase
+        db.execSQL(query)
     }
 }
