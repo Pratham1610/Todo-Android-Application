@@ -1,4 +1,4 @@
-package com.example.todoapplication.data
+package com.example.todoapplication.data.local
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,9 +6,9 @@ import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.example.todoapplication.TodoData
+import com.example.todoapplication.model.TodoData
+import com.example.todoapplication.utilities.log
 import java.time.Instant
 import java.time.format.DateTimeFormatter
 
@@ -47,7 +47,7 @@ class DBHandler(context: Context) :
             put(KEY_TIMESTAMP, timeStamp.toString())
         }
         db.insert(TABLE_NAME, null, values)
-        Log.d("Insert Query: ", "Successfully inserted")
+        log("Insert Query: ", "Successfully inserted")
         db.close()
     }
 
@@ -64,7 +64,7 @@ class DBHandler(context: Context) :
 
                     val tData = TodoData(priority, task)
                     datalist.add(tData)
-                    Log.d("item: ", task + "priority: " + priority)
+                    log("item: ", task + "priority: " + priority)
                 }while(it.moveToNext())
             }
         }

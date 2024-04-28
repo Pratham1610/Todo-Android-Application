@@ -9,7 +9,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Task Details"
+        android:text="@string/enter_task_details"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Your Task"
+        android:text="@string/enter_your_task"
         android:textStyle="bold" />
 
     <EditText
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Choose Priority"
+        android:text="@string/choose_priority"
         android:textStyle="bold" />
 
     <Spinner
@@ -49,6 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Submit" />
+        android:text="@string/submit" />
 
 </LinearLayout>

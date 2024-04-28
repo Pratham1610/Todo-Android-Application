@@ -10,13 +10,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/baseline_edit_note_24"
-        android:text="TODO Application"
+        android:text="@string/todo_application"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="45dp"
+        android:textSize="45sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableTopCompat="@drawable/baseline_edit_note_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,20 @@
-package com.example.todoapplication
+package com.example.todoapplication.adapter
 import android.app.Dialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapplication.data.DBHandler
+import com.example.todoapplication.R
+import com.example.todoapplication.data.local.DBHandler
+import com.example.todoapplication.model.TodoData
+import com.example.todoapplication.utilities.log
+import com.example.todoapplication.view.TodoViewHolder
 
 class MyAdapter(private var context: Context, private var todoList: MutableList<TodoData>) : RecyclerView.Adapter<TodoViewHolder>() {
 
@@ -21,19 +22,23 @@ class MyAdapter(private var context: Context, private var todoList: MutableList<
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_item, parent, false)
         return TodoViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val currentData = todoList[position]
         holder.taskData.setText(currentData.data)
-        holder.taskPriority.setText(currentData.priority)
         if("High Priority" == currentData.priority){
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.red
+            ))
         }
         else if("Medium Priority" == currentData.priority){
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.yellow))
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.yellow
+            ))
         }
         else{
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.green
+            ))
         }
 
         holder.card.setOnClickListener{
@@ -52,15 +57,20 @@ class MyAdapter(private var context: Context, private var todoList: MutableList<
                     alertBox("Input task is empty")
                 } else {
                     holder.taskData.setText(newTaskData)
-                    holder.taskPriority.setText(newTaskPriority)
                     if("High Priority" == newTaskPriority){
-                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                            R.color.red
+                        ))
                     }
                     else if("Medium Priority" == newTaskPriority){
-                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.yellow))
+                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                            R.color.yellow
+                        ))
                     }
                     else{
-                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.green))
+                        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context,
+                            R.color.green
+                        ))
                     }
                     editTask(currentData.data, currentData.priority, newTaskData, newTaskPriority)
                 }
@@ -68,7 +78,6 @@ class MyAdapter(private var context: Context, private var todoList: MutableList<
             }
             dialog.show()
         }
-
         holder.card.setOnLongClickListener{
             alertBox(currentData.data, currentData.priority, position)
             true
@@ -85,7 +94,7 @@ class MyAdapter(private var context: Context, private var todoList: MutableList<
         builder.setMessage(text)
             .setCancelable(false)
             .setPositiveButton("OK") { dialog, id ->
-                Log.d("OK", "pressed")
+                log("OK", "pressed")
             }
         val alert = builder.create()
         alert.show()
@@ -96,22 +105,15 @@ class MyAdapter(private var context: Context, private var todoList: MutableList<
         builder.setMessage("This action cannot be undone. Are you sure you want to delete this task ?")
 
         builder.setPositiveButton("YES") { dialog, which ->
-            Toast.makeText(context,
-                "YES", Toast.LENGTH_SHORT).show()
             todoList.removeAt(position)
             notifyItemRemoved(position)
             deleteRow(task, taskPriority)
         }
 
         builder.setNegativeButton("NO") { dialog, which ->
-            Toast.makeText(context,
-                "NO", Toast.LENGTH_SHORT).show()
-
         }
 
         builder.setNeutralButton("Cancel") { dialog, which ->
-            Toast.makeText(context,
-                "Cancel", Toast.LENGTH_SHORT).show()
         }
         builder.show()
     }

@@ -1,4 +1,4 @@
-package com.example.todoapplication
+package com.example.todoapplication.model
 
 data class TodoData(
     val priority: String,

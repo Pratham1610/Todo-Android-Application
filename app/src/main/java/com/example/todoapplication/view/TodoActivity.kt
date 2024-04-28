@@ -1,22 +1,24 @@
-package com.example.todoapplication
+package com.example.todoapplication.view
 import android.app.Dialog
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapplication.data.DBHandler
+import com.example.todoapplication.adapter.MyAdapter
+import com.example.todoapplication.R
+import com.example.todoapplication.data.local.DBHandler
+import com.example.todoapplication.model.TodoData
+import com.example.todoapplication.utilities.log
+import com.example.todoapplication.utilities.toast
 
 
-class TodoActivity : AppCompatActivity() {
+class TodoActivity : AppCompatActivity () {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
@@ -34,7 +36,6 @@ class TodoActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         val addButton: Button = findViewById(R.id.btnAddItem)
         addButton.setOnClickListener {
-//            startActivity(Intent(this, AddTaskActivity::class.java))
             customDialog()
         }
         val deleteBtn: Button = findViewById(R.id.btnDeleteItem)
@@ -42,11 +43,11 @@ class TodoActivity : AppCompatActivity() {
             if(db.getSize() == 0){
                 alertBox("Nothing to Delete")
             }
-            else alertBox()
+            else {
+                alertBox()
+            }
         }
-
     }
-
     override fun onResume() {
         super.onResume()
         updateRecyclerView()
@@ -63,20 +64,14 @@ class TodoActivity : AppCompatActivity() {
         builder.setMessage("This action cannot be undone. Are you sure ?")
 
         builder.setPositiveButton("YES") { dialog, which ->
-            Toast.makeText(applicationContext,
-                "YES", Toast.LENGTH_SHORT).show()
             deleteAllTask()
         }
 
         builder.setNegativeButton("NO") { dialog, which ->
-            Toast.makeText(applicationContext,
-                "NO", Toast.LENGTH_SHORT).show()
 
         }
 
         builder.setNeutralButton("Cancel") { dialog, which ->
-            Toast.makeText(applicationContext,
-                "Cancel", Toast.LENGTH_SHORT).show()
         }
         builder.show()
     }
@@ -85,21 +80,18 @@ class TodoActivity : AppCompatActivity() {
         builder.setMessage(text)
             .setCancelable(false)
             .setPositiveButton("OK") { dialog, id ->
-                Log.d("OK", "pressed")
+                log("OK", "pressed")
             }
         val alert = builder.create()
         alert.show()
     }
     private fun deleteAllTask(){
-        Log.d("Initial Size of the Table: ", db.getSize().toString())
+        log("Initial Size of the Table: ", db.getSize().toString())
         db.deleteData()
         updateRecyclerView()
-        Log.d("Size of the Table: ", db.getSize().toString())
-        Toast.makeText(this, "All task delete successfully", Toast.LENGTH_LONG).show()
+        log("Size of the Table: ", db.getSize().toString())
+        toast(this, "All task delete successfully")
     }
-
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun customDialog() {
         val dialog = Dialog(this)
@@ -129,10 +121,6 @@ class TodoActivity : AppCompatActivity() {
         val db = DBHandler(this)
         val todo = TodoData(taskPriority, taskText)
         db.addTask(todo)
-        Toast.makeText(this, " $taskText  Added with Priority: $taskPriority", Toast.LENGTH_LONG).show()
-    }
-
-    fun deleteTask(taskText: String, taskPriority: String){
-
+        toast(this, "added successfully")
     }
 }
